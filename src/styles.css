@@ -91,7 +91,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(180deg,#dff1ff,white);
+  /* background:linear-gradient(180deg,#dff1ff,white); */
   font-size:56px;margin-left:auto;
 }
 .hero-wave{position:absolute;

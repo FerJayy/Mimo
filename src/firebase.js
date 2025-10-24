@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCpQumljg4huoC2T_2QT_xLwM7yXZOlYNw",
-  authDomain: "mimo-822e2.firebaseapp.com",
-  projectId: "mimo-822e2",
-  storageBucket: "mimo-822e2.firebasestorage.app",
-  messagingSenderId: "805165532427",
-  appId: "1:805165532427:web:9e8de4d7803210c3bb0e0e",
-  measurementId: "G-48LE6DHBN9"
+   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -16,4 +16,5 @@ const app = initializeApp(firebaseConfig);
 
 // Export Firebase Authentication
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 export default app;
