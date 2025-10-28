@@ -5,7 +5,7 @@ export default function NavBar() {
   return (
     <header className="nav">
       <div className="logo">
-        <img src={logo} />
+        <img src={logo} alt="Mimo Logo" />
       </div>
       <nav className="navlinks">
         <a href="#features">Features</a>

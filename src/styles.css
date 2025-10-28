@@ -214,6 +214,55 @@ body{
   transition: 0.2s;
 }
 
+.dashboard {
+  padding: 60px 80px;
+  background: #f7f9fc;
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-expense {
+  margin-top: 40px;
+}
+
+.expense-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.expense-form input,
+.expense-form select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.expense-table th,
+.expense-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.expense-table th {
+  background: #e8f0fe;
+}
 /* .wallet-illustration img {
   width: 100%;
   max-width: 400px;
