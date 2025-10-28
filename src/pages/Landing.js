@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import NavBar from "../components/navBar";
+import NavBar from "../components/NavBar.js";
 import Footer from "../components/Footer";
 import heroImage from "../assets/Mimo wallet.png";
 export default function Landing() {
@@ -50,7 +50,6 @@ export default function Landing() {
 
   return (
     <div className="page">
-      <NavBar />
 
       {/* HERO */}
       <section className="hero">

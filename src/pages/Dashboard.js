@@ -151,10 +151,10 @@ export default function Dashboard() {
             <tbody>
               {expenses.map((exp) => (
                 <tr key={exp.id}>
-                  <td>{exp.title}</td>
-                  <td>{exp.category}</td>
-                  <td>{formatDate(exp.date)}</td>
-                  <td>Rp{exp.amount.toLocaleString("id-ID")}</td>
+                  <td data-label="Title">{exp.title}</td>
+                  <td data-label="Category">{exp.category}</td>
+                  <td data-label="Date">{formatDate(exp.date)}</td>
+                  <td data-label="Amount">Rp{exp.amount.toLocaleString("id-ID")}</td>
                 </tr>
               ))}
             </tbody>
