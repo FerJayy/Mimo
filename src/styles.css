@@ -530,7 +530,7 @@ body.dark .nav.scrolled {
   justify-content: center;    /* center vertically within left half */
   flex-direction: column;
   gap: 16px;
-  padding-bottom: 280px;
+  padding-bottom: 300px;
 }
 
 .signup-text h1 {
@@ -557,6 +557,7 @@ body.dark .nav.scrolled {
   animation: slideUpCharacter 1.1s ease-out forwards;
   filter: drop-shadow(0 12px 25px rgba(0,0,0,.15));
 }
+
 @keyframes slideUpCharacter {
   0% {
     transform: translateY(80px) scale(0.95);

@@ -20,7 +20,9 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Landing />} />
-        <Route
+  
+      </Route>
+      <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
@@ -28,7 +30,6 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-      </Route>
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
     </Routes>
