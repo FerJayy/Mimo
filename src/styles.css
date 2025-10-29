@@ -15,16 +15,30 @@ body{
 
 /* NAV */
 .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
-  justify-content: space-between; /* Logo left, links right */
+  justify-content: space-between;
   align-items: center;
   padding: 18px 56px;
-  background: white;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  width: 100%;
+  z-index: 50;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.nav.scrolled {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+body.dark .nav {
+  background: rgba(30, 30, 30, 0.25);
+}
+body.dark .nav.scrolled {
+  background: rgba(30, 30, 30, 0.8);
 }
 .logo{
   flex: 0 0 auto;
@@ -50,8 +64,9 @@ body{
 .navlinks {
   display: flex;
   align-items: center;
-  gap: 18px;
-  margin-left: auto;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 28px;
 }
 .navlinks a{
   text-decoration:none;color:var(--dark);
@@ -62,6 +77,12 @@ body{
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
 }
 .btn{
   background:var(--accent);
@@ -293,6 +314,10 @@ body{
 .page { padding-bottom: 40px; }
 
 /* ---------- Navbar mobile ---------- */
+.desktop-only {
+  display: flex;
+}
+
 .hamburger {
   display: none;
   width: 36px; height: 28px;
@@ -310,17 +335,69 @@ body{
 .hamburger.is-open span:nth-child(2){ opacity: 0; }
 .hamburger.is-open span:nth-child(3){ top: 12px; transform: rotate(-45deg); }
 
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none;
+  }
+}
+
+/* Mobile menu styling */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin: 10px 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+}
+
+.mobile-menu.show {
+  display: flex;
+  animation: fadeIn 0.25s ease-in;
+}
+
+.mobile-menu a {
+  text-align: center;
+  color: var(--dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mobile-menu .btn,
+.mobile-menu .btn-outline {
+  width: 100%;
+  text-align: center;
+  margin-top: 6px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 /* Desktop nav stays inline; mobile becomes drawer */
 @media (max-width: 900px){
   .nav { padding: 16px 20px; }
   .hamburger { display: block; }
   .navlinks {
-    position: absolute; top: 60px; right: 16px; left: 16px;
-    display: none; flex-direction: column; gap: 12px;
-    background: #fff; padding: 14px; border-radius: 12px;
-    box-shadow: 0 10px 24px rgba(0,0,0,.12);
+    display: none;
   }
-  .navlinks.show { display: flex; }
+  .navlinks.show {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 16px;
+    right: 16px;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  .nav-actions {
+    display: none;
+  }
   .navlinks a, .navlinks .btn, .navlinks .btn-outline { width: 100%; text-align: center; }
 }
 
@@ -408,3 +485,248 @@ body{
 .hero-right {
   animation-delay: 0.5s; /* image comes after */
 }
+
+/* ---------- SIGNUP PAGE MODERN ---------- */
+.signup-page {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(120deg, white 50%, var(--accent) 50%);
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.signup-left {
+  flex: 1;
+  padding: 20px 80px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centers only the text-wrapper area */
+  overflow: hidden;
+}
+.signup-logo {
+  position: absolute;
+  top: 30px;
+  left: 80px;           /* matches .signup-left padding */
+  z-index: 5;
+  display: inline-block;
+}
+.signup-logo img {
+  width: 120px;
+  height: auto;
+  display: block;
+}
+.signup-text {
+  position: relative;
+  z-index: 3;
+  margin-top: 60px;           /* keeps distance from logo */
+  flex-grow: 1;               /* takes up remaining space in column */
+  display: flex;
+  align-items: flex-start;    /* keep text aligned left */
+  justify-content: center;    /* center vertically within left half */
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 280px;
+}
+
+.signup-text h1 {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.signup-text .accent {
+  color: var(--accent);
+}
+
+.signup-illustration {
+  position: fixed;         /* fixed so it never pushes layout */
+  bottom: 0;
+  left: 0;
+  width: 360px;
+  max-width: 35vw;
+  z-index: 1;              /* behind text */
+  pointer-events: none;
+  opacity: 0;
+  animation: slideUpCharacter 1.1s ease-out forwards;
+  filter: drop-shadow(0 12px 25px rgba(0,0,0,.15));
+}
+@keyframes slideUpCharacter {
+  0% {
+    transform: translateY(80px) scale(0.95);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-6px) scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+.signup-right {
+  flex: 1;
+  background: var(--accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+  color: white;
+  transition: clip-path 0.4s ease-in-out, background 0.3s ease-in-out;
+}
+
+
+.signup-form-container {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.signup-form-container h2 {
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signup-form input {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width:auto;
+  min-width: 0; 
+  flex: 1; 
+}
+
+.signup-form .row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.signup-form .btn {
+  background: white;
+  color: var(--accent);
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.signup-form .btn:hover {
+  background: #f0f4ff;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cfe1ff;
+  margin: 16px 0;
+  font-size: 14px;
+  position: relative;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.5);
+  margin: 0 10px;
+}
+
+/* Social buttons */
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-login button {
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.social-login button:hover {
+  transform: scale(1.08);
+}
+
+.social-login img {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* Login link */
+.login-link {
+  margin-top: 14px;
+  color: white;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: white;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .signup-page {
+    flex-direction: column;
+    background: white;
+  }
+
+  .signup-left { padding: 0 20px; }
+  .signup-logo { left: 20px; top: 20px; }
+  .signup-text { min-height: auto; padding: 80px 0 20px; }
+  .signup-right {
+    flex: none;
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  .signup-right {
+    background: var(--accent);
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    clip-path: none;
+  }
+
+  .signup-illustration {
+    display: none;
+  }
+  
+}
+
+@media (max-width: 600px) {
+  .signup-form .row {
+    flex-direction: column;
+  }
+}
+  
+
