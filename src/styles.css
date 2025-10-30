@@ -126,7 +126,7 @@ body.dark .nav.scrolled {
 .btn {
   background: var(--accent);
   color: white;
-  padding: 10px 16px;
+  padding: 10px 15px;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
@@ -178,6 +178,7 @@ body.dark .nav.scrolled {
   color: #6b6f7a;
   max-width: 560px;
   margin-bottom: 18px;
+  padding-bottom: 15px;
 }
 
 .wallet-illustration {
@@ -356,7 +357,7 @@ body.dark .nav.scrolled {
 /* =========================================================
    🧩 RESPONSIVE: HERO / FEATURES / PLANS
    ========================================================= */
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
     padding-bottom: 160px;
@@ -583,48 +584,56 @@ body.dark .nav.scrolled {
 
 @media (max-width: 900px) {
   .hero {
-    min-height: auto;
-    padding: 36px 16px 60px;
-  }
-
-  .hero-content {
-    flex-direction: column;
+    flex-direction: column;         /* Stack vertically */
     text-align: center;
-    gap: 28px;
+    padding: 60px 24px 100px;      /* More spacing for smaller view */
   }
 
   .hero-left {
-    max-width: 640px;
+    order: 1;                      /* Text first */
+    max-width: 90%;
+    margin: 0 auto;
   }
 
   .hero-left h1 {
-    font-size: 36px;
-    line-height: 1.15;
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 14px;
   }
 
   .lead {
-    margin: 0 auto 18px;
-    max-width: 560px;
+    max-width: 420px;
+    margin: 0 auto 20px;
+    color: #555;
+  }
+
+  .wallet-illustration {
+    order: 2;                      /* Image below text */
+    margin: 0 auto;
+    width: 80%;
+    max-width: 300px;
+    height: auto;
   }
 
   .wallet-illustration img {
-    max-width: 360px;
-    width: 85%;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 
   .hero-wave {
-    height: 160px;
-    bottom: -90px;
+    bottom: -60px;
+    height: 140px;
+    transform: skewY(-6deg);
   }
 }
 
 @media (max-width: 520px) {
   .hero-left h1 {
-    font-size: 30px;
+    font-size: 26px;
   }
-
-  .wallet-illustration img {
-    max-width: 300px;
+  .wallet-illustration {
+    max-width: 250px;
   }
 }
 
