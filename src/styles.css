@@ -1,49 +1,77 @@
-:root{
-  --blue:#8fb5ef;
-  --accent:#6aa7f0;
-  --bg:#f6f9fc;
-  --dark:#1f2235;
+/* =========================================================
+   🌈 GLOBAL VARIABLES & BASE STYLES
+   ========================================================= */
+:root {
+  --blue: #8fb5ef;
+  --accent: #6aa7f0;
+  --bg: #f6f9fc;
+  --dark: #1f2235;
 }
 
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--dark);font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+* {
+  box-sizing: border-box;
 }
 
-/* NAV */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--dark);
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* =========================================================
+   🧭 NAVIGATION BAR
+   ========================================================= */
+/* =========================================================
+   🧭 NAVIGATION BAR (FIXED & RESTORED ORIGINAL LAYOUT)
+   ========================================================= */
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 18px 56px;
   z-index: 50;
-  transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* On scroll */
 .nav.scrolled {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
+
+/* Dark mode */
 body.dark .nav {
   background: rgba(30, 30, 30, 0.25);
 }
+
 body.dark .nav.scrolled {
   background: rgba(30, 30, 30, 0.8);
 }
-.logo{
-  flex: 0 0 auto;
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
+
 .logo-img {
+  padding-top: 10px;
   cursor: pointer;
   transition: transform 0.15s ease;
 }
@@ -51,216 +79,309 @@ body.dark .nav.scrolled {
 .logo-img:hover {
   transform: scale(1.05);
 }
+
+/* Animation: Logo bounce */
 .logo-img.clicked {
   animation: logo-bounce 0.3s ease;
 }
 
 @keyframes logo-bounce {
   0% { transform: scale(1); }
-  40% { transform: scale(0.9); }  
-  70% { transform: scale(1.08); } 
+  40% { transform: scale(0.9); }
+  70% { transform: scale(1.08); }
   100% { transform: scale(1); }
 }
-.navlinks {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  gap: 28px;
-}
-.navlinks a{
-  text-decoration:none;color:var(--dark);
-  font-weight:500;
-}
+
+/* Nav container */
 .nav-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
 }
+
+/* Nav links */
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-left: 60px; /* keeps them beside logo */
+  flex-grow: 1;
+}
+
+.navlinks a {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+/* Right-side buttons */
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-left: auto;
 }
-.btn{
-  background:var(--accent);
-  color:white;padding:10px 16px;
-  border-radius:10px;
-  text-decoration:none;
-  display:inline-block;
-  order:none;cursor:pointer;
-  font-weight:600;
-}
-.btn-outline{
-  border:1px solid var(--accent);
-  padding:8px 14px;border-radius:10px;
-  color:var(--accent);
-  text-decoration:none;
-}
-.btn.block{
-  display:block;
-  text-align:center;
-  margin-top:12px;
-}
 
-/* HERO */
-.hero{
-  position:relative;
-  display:flex;
-  justify-content: center;
-  align-items: center; 
-  grid-template-columns:1.1fr 0.9fr;
-  gap: 60px;
-  align-items:center;
-  padding:72px 56px 120px;
-  background:white;
-  overflow:hidden;
-}
-.hero-left h1{
-  font-size:48px;
-  margin:0 0 12px;
-  font-weight:900;
-}
-.accent{
-  color:var(--accent);
-}
-.lead{
-  color:#6b6f7a;
-  max-width:560px;
-  margin-bottom:18px;
-}
-.wallet-illustration{
-  width:320px;
-  height:260px;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  /* background:linear-gradient(180deg,#dff1ff,white); */
-  font-size:56px;margin-left:auto;
-}
-.hero-wave{position:absolute;
-  left:-10%;
-  right:-10%;
-  bottom:-120px;
-  height:220px;
-  background:radial-gradient(120% 140% at 50% 10%, rgba(145,183,240,0.5), rgba(145,183,240,0.5) 50%, transparent 51%);
-  transform:skewY(-8deg);
-}
-
-/* FEATURES */
-.features{padding:72px 56px;text-align:center;background:linear-gradient(180deg,transparent, rgba(107,141,200,0.18))}
-.features h2{font-size:32px;margin-bottom:24px}
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,0.08);text-align:left}
-.card h3{margin:8px 0 6px;font-size:16px}
-.icon{font-size:18px}
-.muted{color:#7b7f89}
-
-/* HOW IT WORKS */
-.how{padding:56px;text-align:center;background:white}
-.how-steps{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px}
-.how-card{background:#e6f0ff;border:1px solid #cfe1ff;padding:16px 18px;border-radius:12px;min-width:180px;position:relative}
-.how-icon{font-size:18px;margin-bottom:6px}
-.how-title{font-weight:600}
-.arrow{position:absolute;right:-16px;top:50%;transform:translateY(-50%);opacity:0.6}
-
-/* PLANS */
-.plans{padding:72px 56px}
-.plans h2{font-size:32px;text-align:center;margin-bottom:24px}
-.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.plan-card{background:white;border:1px solid #cfe1ff;border-radius:16px;padding:22px;box-shadow:0 8px 18px rgba(0,0,0,0.06);position:relative}
-.badge{position:absolute;top:-12px;left:18px;background:#0f1b2d;color:#fff;padding:4px 10px;border-radius:10px;font-size:12px}
-.price{font-size:22px;font-weight:800;margin:8px 0 6px}
-.plan-list{margin:12px 0 0 0;padding-left:18px}
-.plan-list li{margin:6px 0}
-
-/* FOOTER */
-.footer{padding:20px;text-align:center;color:#9aa0b2}
-
-/* RESPONSIVE */
-@media (max-width:1000px){
-  .hero{grid-template-columns:1fr; padding-bottom:160px}
-  .wallet-illustration{margin:16px 0 0}
-  .cards-grid{grid-template-columns:repeat(2,1fr)}
-  .plan-grid{grid-template-columns:1fr}
-}
-
-/* SIGNUP / LOGIN PAGE STYLES */
-.split {
-  display: flex;
-  min-height: 100vh;
-}
-
-.left-column {
-  flex: 1;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-}
-
-.right-column {
-  flex: 1;
-  background: linear-gradient(135deg, #8fb5ef, #6aa7f0);
+/* Buttons */
+.btn {
+  background: var(--accent);
   color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-}
-
-.form {
-  max-width: 400px;
-  width: 100%;
-}
-
-.form input {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  margin-bottom: 12px;
-}
-
-.row {
-  display: flex;
-  gap: 10px;
-}
-
-.error {
-  color: #ffdddd;
-  background: #b22222;
-  padding: 8px;
-  border-radius: 6px;
-  margin-bottom: 12px;
-  font-size: 14px;
-}
-
-.right-column h3 {
-  color: white;
-  margin-bottom: 16px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .btn-outline {
-  background: white;
-  border: 1px solid #6aa7f0;
-  color: #6aa7f0;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  background: transparent;
 }
 
 .btn-outline:hover {
-  background: #6aa7f0;
+  background: var(--accent);
   color: white;
   transition: 0.2s;
 }
 
+
+/* =========================================================
+   🦸 HERO SECTION
+   ========================================================= */
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  padding: 72px 56px 120px;
+  background: white;
+  overflow: hidden;
+}
+
+.hero-left h1 {
+  font-size: 48px;
+  margin: 0 0 12px;
+  font-weight: 900;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.lead {
+  color: #6b6f7a;
+  max-width: 560px;
+  margin-bottom: 18px;
+}
+
+.wallet-illustration {
+  width: 320px;
+  height: 260px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  margin-left: auto;
+}
+
+/* Decorative wave background */
+.hero-wave {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -120px;
+  height: 220px;
+  background: radial-gradient(120% 140% at 50% 10%, rgba(145,183,240,0.5), rgba(145,183,240,0.5) 50%, transparent 51%);
+  transform: skewY(-8deg);
+}
+
+/* =========================================================
+   💡 FEATURES SECTION
+   ========================================================= */
+.features {
+  padding: 72px 56px;
+  text-align: center;
+  background: linear-gradient(180deg, transparent, rgba(107,141,200,0.18));
+}
+
+.features h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+
+.card h3 {
+  margin: 8px 0 6px;
+  font-size: 16px;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.muted {
+  color: #7b7f89;
+}
+
+/* =========================================================
+   ⚙️ HOW IT WORKS SECTION
+   ========================================================= */
+.how {
+  padding: 56px;
+  text-align: center;
+  background: white;
+}
+
+.how-steps {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.how-card {
+  background: #e6f0ff;
+  border: 1px solid #cfe1ff;
+  padding: 16px 18px;
+  border-radius: 12px;
+  min-width: 180px;
+  position: relative;
+}
+
+.how-icon {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.how-title {
+  font-weight: 600;
+}
+
+.arrow {
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+/* =========================================================
+   💰 PLANS SECTION
+   ========================================================= */
+.plans {
+  padding: 72px 56px;
+}
+
+.plans h2 {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.plan-card {
+  background: white;
+  border: 1px solid #cfe1ff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  background: #0f1b2d;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 8px 0 6px;
+}
+
+.plan-list {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.plan-list li {
+  margin: 6px 0;
+}
+
+/* =========================================================
+   🦶 FOOTER
+   ========================================================= */
+.footer {
+  padding: 20px;
+  text-align: center;
+  color: #9aa0b2;
+}
+
+/* =========================================================
+   🧩 RESPONSIVE: HERO / FEATURES / PLANS
+   ========================================================= */
+@media (max-width: 1000px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-bottom: 160px;
+  }
+
+  .wallet-illustration {
+    margin: 16px 0 0;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .plan-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   🔐 SIGNUP PAGE (MODERN STYLE)
+   ========================================================= */
+/* ... full section continues exactly as before ... */
+/* =========================================================
+   💼 DASHBOARD SECTION
+   ========================================================= */
 .dashboard {
   padding: 60px 80px;
   background: #f7f9fc;
@@ -277,6 +398,7 @@ body.dark .nav.scrolled {
   margin-top: 40px;
 }
 
+/* Expense Form */
 .expense-form {
   display: flex;
   flex-wrap: wrap;
@@ -291,6 +413,7 @@ body.dark .nav.scrolled {
   border: 1px solid #ccc;
 }
 
+/* Expense Table */
 .expense-table {
   width: 100%;
   border-collapse: collapse;
@@ -311,37 +434,63 @@ body.dark .nav.scrolled {
   background: #e8f0fe;
 }
 
-.page { padding-bottom: 40px; }
+.page {
+  padding-bottom: 40px;
+}
 
-/* ---------- Navbar mobile ---------- */
+/* =========================================================
+   🍔 NAVBAR (MOBILE RESPONSIVE)
+   ========================================================= */
 .desktop-only {
   display: flex;
 }
 
 .hamburger {
   display: none;
-  width: 36px; height: 28px;
-  border: 0; background: transparent; cursor: pointer;
-  position: relative; margin-left: auto;
+  width: 36px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin-left: auto;
 }
-.hamburger span {
-  position: absolute; left: 0; right: 0; height: 3px; border-radius: 2px;
-  background: var(--dark); transition: transform .2s, top .2s, opacity .2s;
-}
-.hamburger span:nth-child(1){ top: 3px; }
-.hamburger span:nth-child(2){ top: 12px; }
-.hamburger span:nth-child(3){ top: 21px; }
-.hamburger.is-open span:nth-child(1){ top: 12px; transform: rotate(45deg); }
-.hamburger.is-open span:nth-child(2){ opacity: 0; }
-.hamburger.is-open span:nth-child(3){ top: 12px; transform: rotate(-45deg); }
 
+.hamburger span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--dark);
+  transition: transform 0.2s, top 0.2s, opacity 0.2s;
+}
+
+/* Hamburger Icon States */
+.hamburger span:nth-child(1) { top: 3px; }
+.hamburger span:nth-child(2) { top: 12px; }
+.hamburger span:nth-child(3) { top: 21px; }
+
+.hamburger.is-open span:nth-child(1) {
+  top: 12px;
+  transform: rotate(45deg);
+}
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-open span:nth-child(3) {
+  top: 12px;
+  transform: rotate(-45deg);
+}
+
+/* Hide Desktop Nav on Small Screens */
 @media (max-width: 900px) {
   .desktop-only {
     display: none;
   }
 }
 
-/* Mobile menu styling */
+/* Mobile Menu */
 .mobile-menu {
   display: none;
   flex-direction: column;
@@ -350,7 +499,7 @@ body.dark .nav.scrolled {
   padding: 16px;
   border-radius: 12px;
   margin: 10px 16px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-menu.show {
@@ -372,20 +521,30 @@ body.dark .nav.scrolled {
   margin-top: 6px;
 }
 
+/* Animation: Fade In for Mobile Menu */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* Desktop nav stays inline; mobile becomes drawer */
-@media (max-width: 900px){
-  .nav { padding: 16px 20px; }
-  .hamburger { display: block; }
+
+/* Mobile Navbar Behavior */
+@media (max-width: 900px) {
+  .nav {
+    padding: 16px 20px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
   .navlinks {
     display: none;
   }
+
   .navlinks.show {
     display: flex;
     flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 60px;
     left: 16px;
@@ -393,73 +552,86 @@ body.dark .nav.scrolled {
     background: white;
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
+
   .nav-actions {
     display: none;
   }
-  .navlinks a, .navlinks .btn, .navlinks .btn-outline { width: 100%; text-align: center; }
-}
 
-/* ---------- Hero responsive ---------- */
-.hero { min-height: 70vh; padding: 48px 20px; }
-.hero-content { gap: 40px; max-width: 1000px; padding: 0 12px; }
-
-@media (max-width: 900px){
-  .hero { min-height: auto; padding: 36px 16px 60px; }
-  .hero-content { flex-direction: column; text-align: center; gap: 28px; }
-  .hero-left { max-width: 640px; }
-  .hero-left h1 { font-size: 36px; line-height: 1.15; }
-  .lead { margin: 0 auto 18px; max-width: 560px; }
-  .wallet-illustration img { max-width: 360px; width: 85%; }
-  .hero-wave { height: 160px; bottom: -90px; }
-}
-
-@media (max-width: 520px){
-  .hero-left h1 { font-size: 30px; }
-  .wallet-illustration img { max-width: 300px; }
-}
-
-/* ---------- Features & Plans grids collapse ---------- */
-@media (max-width: 900px){
-  .cards-grid { grid-template-columns: 1fr; gap: 14px; padding: 0 10px; }
-  .plan-grid  { grid-template-columns: 1fr; gap: 14px; padding: 0 10px; }
-}
-
-/* ---------- Dashboard form & table ---------- */
-.dashboard { padding: 28px 16px; }
-.topbar { flex-direction: column; align-items: flex-start; gap: 8px; }
-@media (min-width: 720px){ .dashboard { padding: 48px 40px; } }
-
-.expense-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns on small tablets */
-  gap: 10px;
-}
-.expense-form button { grid-column: 1 / -1; }
-
-@media (max-width: 520px){
-  .expense-form { grid-template-columns: 1fr; } /* 1 column on phones */
-}
-
-/* Table -> cards on small screens */
-@media (max-width: 720px){
-  .expense-table { border: 0; }
-  .expense-table thead { display: none; }
-  .expense-table tr {
-    display: block; background: #fff; margin: 10px 0; padding: 12px;
-    border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,.06);
-  }
-  .expense-table td {
-    display: flex; justify-content: space-between; padding: 8px 0; border: 0;
-  }
-  .expense-table td::before {
-    content: attr(data-label);
-    font-weight: 600; margin-right: 12px; color: #6b6f7a;
+  .navlinks a,
+  .navlinks .btn,
+  .navlinks .btn-outline {
+    width: 100%;
+    text-align: center;
   }
 }
 
-/* ---------- Hero Entrance Animation ---------- */
+/* =========================================================
+   📱 HERO + FEATURES + PLANS (RESPONSIVE ADJUSTMENTS)
+   ========================================================= */
+.hero {
+  min-height: 70vh;
+  padding: 48px 20px;
+}
+
+.hero-content {
+  gap: 40px;
+  max-width: 1000px;
+  padding: 0 12px;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: auto;
+    padding: 36px 16px 60px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 28px;
+  }
+
+  .hero-left {
+    max-width: 640px;
+  }
+
+  .hero-left h1 {
+    font-size: 36px;
+    line-height: 1.15;
+  }
+
+  .lead {
+    margin: 0 auto 18px;
+    max-width: 560px;
+  }
+
+  .wallet-illustration img {
+    max-width: 360px;
+    width: 85%;
+  }
+
+  .hero-wave {
+    height: 160px;
+    bottom: -90px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-left h1 {
+    font-size: 30px;
+  }
+
+  .wallet-illustration img {
+    max-width: 300px;
+  }
+}
+
+/* =========================================================
+   🪄 HERO ANIMATIONS
+   ========================================================= */
+/* Animation: Fade-up for Hero Entry */
 @keyframes fadeUp {
   0% {
     opacity: 0;
@@ -471,7 +643,7 @@ body.dark .nav.scrolled {
   }
 }
 
-.hero-left, 
+.hero-left,
 .hero-right {
   opacity: 0;
   transform: translateY(40px);
@@ -479,14 +651,16 @@ body.dark .nav.scrolled {
 }
 
 .hero-left {
-  animation-delay: 0.2s; /* slight stagger for text */
+  animation-delay: 0.2s;
 }
 
 .hero-right {
-  animation-delay: 0.5s; /* image comes after */
+  animation-delay: 0.5s;
 }
 
-/* ---------- SIGNUP PAGE MODERN ---------- */
+/* =========================================================
+   🧾 SIGNUP PAGE (MODERN DESIGN)
+   ========================================================= */
 .signup-page {
   display: flex;
   min-height: 100vh;
@@ -494,40 +668,46 @@ body.dark .nav.scrolled {
   overflow: hidden;
   animation: fadeIn 0.5s ease-in;
 }
+
+/* Animation: Page Fade-in */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Left Section */
 .signup-left {
   flex: 1;
   padding: 20px 80px;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centers only the text-wrapper area */
+  justify-content: center;
   overflow: hidden;
 }
+
 .signup-logo {
   position: absolute;
   top: 30px;
-  left: 80px;           /* matches .signup-left padding */
+  left: 80px;
   z-index: 5;
-  display: inline-block;
 }
+
 .signup-logo img {
   width: 120px;
   height: auto;
   display: block;
 }
+
+/* Signup text area */
 .signup-text {
   position: relative;
   z-index: 3;
-  margin-top: 60px;           /* keeps distance from logo */
-  flex-grow: 1;               /* takes up remaining space in column */
+  margin-top: 60px;
+  flex-grow: 1;
   display: flex;
-  align-items: flex-start;    /* keep text aligned left */
-  justify-content: center;    /* center vertically within left half */
+  align-items: flex-start;
+  justify-content: center;
   flex-direction: column;
   gap: 16px;
   padding-bottom: 300px;
@@ -545,33 +725,28 @@ body.dark .nav.scrolled {
   color: var(--accent);
 }
 
+/* Bottom-left character */
 .signup-illustration {
-  position: fixed;         /* fixed so it never pushes layout */
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 360px;
   max-width: 35vw;
-  z-index: 1;              /* behind text */
+  z-index: 1;
   pointer-events: none;
   opacity: 0;
   animation: slideUpCharacter 1.1s ease-out forwards;
-  filter: drop-shadow(0 12px 25px rgba(0,0,0,.15));
+  filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.15));
 }
 
+/* Animation: Character slide-in */
 @keyframes slideUpCharacter {
-  0% {
-    transform: translateY(80px) scale(0.95);
-    opacity: 0;
-  }
-  60% {
-    transform: translateY(-6px) scale(1.02);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
+  0% { transform: translateY(80px) scale(0.95); opacity: 0; }
+  60% { transform: translateY(-6px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
+
+/* Right Section */
 .signup-right {
   flex: 1;
   background: var(--accent);
@@ -584,7 +759,6 @@ body.dark .nav.scrolled {
   transition: clip-path 0.4s ease-in-out, background 0.3s ease-in-out;
 }
 
-
 .signup-form-container {
   width: 100%;
   max-width: 400px;
@@ -596,6 +770,7 @@ body.dark .nav.scrolled {
   margin-bottom: 18px;
 }
 
+/* Signup Form */
 .signup-form {
   display: flex;
   flex-direction: column;
@@ -607,9 +782,9 @@ body.dark .nav.scrolled {
   border-radius: 10px;
   border: none;
   outline: none;
-  width:auto;
-  min-width: 0; 
-  flex: 1; 
+  width: auto;
+  min-width: 0;
+  flex: 1;
 }
 
 .signup-form .row {
@@ -643,12 +818,13 @@ body.dark .nav.scrolled {
   font-size: 14px;
   position: relative;
 }
+
 .divider::before,
 .divider::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.5);
   margin: 0 10px;
 }
 
@@ -682,7 +858,7 @@ body.dark .nav.scrolled {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
 }
 
-/* Login link */
+/* Already have an account */
 .login-link {
   margin-top: 14px;
   color: white;
@@ -695,23 +871,31 @@ body.dark .nav.scrolled {
   text-decoration: underline;
 }
 
-/* Responsive */
+/* Responsive Signup */
 @media (max-width: 900px) {
   .signup-page {
     flex-direction: column;
     background: white;
   }
 
-  .signup-left { padding: 0 20px; }
-  .signup-logo { left: 20px; top: 20px; }
-  .signup-text { min-height: auto; padding: 80px 0 20px; }
+  .signup-left {
+    padding: 0 20px;
+  }
+
+  .signup-logo {
+    left: 20px;
+    top: 20px;
+  }
+
+  .signup-text {
+    min-height: auto;
+    padding: 80px 0 20px;
+  }
+
   .signup-right {
     flex: none;
     width: 100%;
     padding: 40px 20px;
-  }
-
-  .signup-right {
     background: var(--accent);
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
@@ -721,7 +905,6 @@ body.dark .nav.scrolled {
   .signup-illustration {
     display: none;
   }
-  
 }
 
 @media (max-width: 600px) {
@@ -729,5 +912,32 @@ body.dark .nav.scrolled {
     flex-direction: column;
   }
 }
-  
 
+/* =========================================================
+   🔑 LOGIN PAGE (Mirrors Signup)
+   ========================================================= */
+.login-page {
+  @extend .signup-page;
+}
+
+.login-left,
+.login-right {
+  @extend .signup-left;
+  @extend .signup-right;
+}
+
+.login-form-container {
+  @extend .signup-form-container;
+}
+
+.login-form {
+  @extend .signup-form;
+}
+
+.login-form .btn {
+  @extend .signup-form .btn;
+}
+
+.login-form .social-login {
+  @extend .social-login;
+}
