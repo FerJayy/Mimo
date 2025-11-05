@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles.css";
 import Expense from "../components/Expense";
 import Sidebar from "../components/Sidebar";
+import Income from "../components/Income";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -82,7 +83,7 @@ export default function Dashboard() {
           {/* ===== INCOME SECTION (for later) ===== */}
           {activeTab === "income" && (
             <div className="income-section">
-              <p>Income section coming soon 💰</p>
+              <Income />
             </div>
           )}
         </div>

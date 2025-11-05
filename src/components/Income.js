@@ -15,8 +15,8 @@ import {
 } from "firebase/firestore";
 
 // ---------- Fixed lists ----------
-const CATEGORIES = ["Food", "Transport", "Bills", "Shopping", "Entertainment", "Other"];
-const PAYMENT_METHODS = ["Cash", "Debit", "Credit"];
+const CATEGORIES = ["Salary", "Freelance", "Investments", "Others"];
+const PAYMENT_METHODS = ["Cash", "Bank Transfer", "Check"];
 
 // ---------- Helpers ----------
 const rp = (n) =>
@@ -45,7 +45,7 @@ const fromDateInput = (value) => {
   return Timestamp.fromDate(new Date(value + "T00:00:00"));
 };
 
-// ---------- UI ----------
+// ---------- UI Components ----------
 function Modal({ open, onClose, children }) {
   if (!open) return null;
   return (
@@ -61,7 +61,7 @@ function Toast({ open, message }) {
   return <div className={`toast ${open ? "show" : ""}`}>{message}</div>;
 }
 
-export default function Expense() {
+export default function Income() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -83,12 +83,12 @@ export default function Expense() {
 
   const [toast, setToast] = useState({ show: false, msg: "" });
 
-  // listen to Firebase
+  // ---------- Firebase listener ----------
   useEffect(() => {
     const unsubAuth = auth.onAuthStateChanged((u) => {
       if (!u) return;
       const q = query(
-        collection(db, "expenses"),
+        collection(db, "incomes"),
         where("userId", "==", u.uid),
         orderBy("date", "desc"),
         orderBy("createdAt", "desc")
@@ -103,7 +103,7 @@ export default function Expense() {
     return () => unsubAuth();
   }, []);
 
-  // handle add / edit / delete (same as before)
+  // ---------- Form & actions ----------
   const resetForm = () =>
     setForm({
       title: "",
@@ -152,23 +152,24 @@ export default function Expense() {
     };
 
     try {
-      if (editingId) await updateDoc(doc(db, "expenses", editingId), payload);
-      else await addDoc(collection(db, "expenses"), payload);
+      if (editingId) await updateDoc(doc(db, "incomes", editingId), payload);
+      else await addDoc(collection(db, "incomes"), payload);
 
       setToast({ show: true, msg: editingId ? "Updated ✅" : "Added ✅" });
       setTimeout(() => setToast({ show: false, msg: "" }), 1500);
       closeModal();
     } catch (err) {
       console.error(err);
-      alert("Error saving expense");
+      alert("Error saving income");
     }
   };
 
   const handleDelete = async (row) => {
     if (!window.confirm(`Delete "${row.title}"?`)) return;
-    await deleteDoc(doc(db, "expenses", row.id));
+    await deleteDoc(doc(db, "incomes", row.id));
   };
 
+  // ---------- Filtered list ----------
   const filtered = useMemo(() => {
     const txt = search.toLowerCase();
     return items.filter((it) => {
@@ -182,16 +183,17 @@ export default function Expense() {
     });
   }, [items, search, catFilter, pmFilter]);
 
+  // ---------- Render ----------
   return (
     <>
       {/* Summary Cards */}
       <div className="summary-row">
-        <div className="summary-card expense">
-          <h4>Expenses</h4>
+        <div className="summary-card income">
+          <h4>Income</h4>
           <p>{rp(items.reduce((sum, x) => sum + (Number(x.amount) || 0), 0))}</p>
         </div>
         <div className="summary-card saved">
-          <h4>Average Expense</h4>
+          <h4>Average Income</h4>
           <p>
             {rp(
               items.length
@@ -203,19 +205,19 @@ export default function Expense() {
             )}
           </p>
         </div>
-        <div className="summary-card income">
+        <div className="summary-card">
           <h4>Total Transactions</h4>
-          <p>{items.length}</p>
+          <p style={{ color: "green" }}>{items.length}</p>
         </div>
       </div>
 
-      {/* Filter & Add */}
+      {/* Filters */}
       <div className="controls-row">
         <div className="input-group search">
-          <span>🔎</span>
+          <span>🔍</span>
           <input
             type="text"
-            placeholder="Search expenses…"
+            placeholder="Search income…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -242,17 +244,17 @@ export default function Expense() {
         </div>
 
         <button className="btn" onClick={openAdd}>
-          ＋ Add Expense
+          ＋ Add Income
         </button>
       </div>
 
       {/* Table */}
       <section className="expense-list">
-        <h3>List of Expense</h3>
+        <h3>List of Income</h3>
         {loading ? (
           <p>Loading…</p>
         ) : filtered.length === 0 ? (
-          <p>No expenses yet.</p>
+          <p>No income yet.</p>
         ) : (
           <table className="expense-table">
             <thead>
@@ -287,7 +289,7 @@ export default function Expense() {
       {/* Modal */}
       <Modal open={openModal} onClose={closeModal}>
         <form className="modal-form" onSubmit={handleSubmit}>
-          <h3>{editingId ? "Edit Expense" : "Add Expense"}</h3>
+          <h3>{editingId ? "Edit Income" : "Add Income"}</h3>
 
           <label>
             Title
@@ -323,7 +325,9 @@ export default function Expense() {
             Payment Method
             <select
               value={form.paymentMethod}
-              onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, paymentMethod: e.target.value })
+              }
             >
               <option value="">Select method</option>
               {PAYMENT_METHODS.map((m) => (
